@@ -1,0 +1,27 @@
+name: Daily Automation
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 时间 00:00 运行
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout代码
+      uses: actions/checkout@v2
+
+    - name: 设置Python版本
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # 使用你需要的Python版本
+
+    - name: 安装依赖项
+      run: |
+        pip install -r requirements.txt  # 确保 requirements.txt 存在并包含你的依赖项
+        echo "依赖项已安装"
+    
+    - name: 运行main.py
+      run: python main.py  # 假设 main.py 存在于仓库中的根目录
+
